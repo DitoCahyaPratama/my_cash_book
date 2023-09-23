@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_cash_book/app/routes/app_pages.dart';
 
 class AddIncomeController extends GetxController {
   //TODO: Implement AddIncomeController
-
-  final count = 0.obs;
+  RxBool isLoading = false.obs;
+  TextEditingController usernameC = TextEditingController();
+  TextEditingController passC = TextEditingController();
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +22,7 @@ class AddIncomeController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  Future<void> addIncome() async {
+    Get.offNamed(Routes.HOME);
+  }
 }

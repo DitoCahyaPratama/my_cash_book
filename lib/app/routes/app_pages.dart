@@ -18,37 +18,37 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
       name: _Paths.HOME,
-      page: () => const HomeView(),
+      page: () => HomeView(),
       binding: HomeBinding(),
     ),
     GetPage(
       name: _Paths.LOGIN,
-      page: () => const LoginView(),
+      page: () => LoginView(),
       binding: LoginBinding(),
     ),
     GetPage(
       name: _Paths.ADD_INCOME,
-      page: () => const AddIncomeView(),
+      page: () => AddIncomeView(),
       binding: AddIncomeBinding(),
     ),
     GetPage(
       name: _Paths.ADD_EXPENSE,
-      page: () => const AddExpenseView(),
+      page: () => AddExpenseView(),
       binding: AddExpenseBinding(),
     ),
     GetPage(
       name: _Paths.DETAIL_CASH_FLOW,
-      page: () => const DetailCashFlowView(),
+      page: () => DetailCashFlowView(),
       binding: DetailCashFlowBinding(),
     ),
     GetPage(
       name: _Paths.SETTING,
-      page: () => const SettingView(),
+      page: () => SettingView(),
       binding: SettingBinding(),
     ),
   ];

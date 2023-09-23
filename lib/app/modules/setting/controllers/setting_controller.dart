@@ -1,9 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_cash_book/app/routes/app_pages.dart';
 
 class SettingController extends GetxController {
   //TODO: Implement SettingController
 
-  final count = 0.obs;
+  RxBool isLoading = false.obs;
+  RxBool obsecureText = true.obs;
+  RxBool obsecureTextNew = true.obs;
+  TextEditingController passC = TextEditingController();
+  TextEditingController passNewC = TextEditingController();
+
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +26,7 @@ class SettingController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  Future<void> changePassword() async {
+    Get.offNamed(Routes.HOME);
+  }
 }

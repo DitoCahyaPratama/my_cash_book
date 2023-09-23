@@ -1,9 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_cash_book/app/routes/app_pages.dart';
 
 class LoginController extends GetxController {
   //TODO: Implement LoginController
+  RxBool isLoading = false.obs;
+  RxBool obsecureText = true.obs;
+  TextEditingController usernameC = TextEditingController();
+  TextEditingController passC = TextEditingController();
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +24,7 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  Future<void> login() async {
+    Get.offNamed(Routes.HOME);
+  }
 }
