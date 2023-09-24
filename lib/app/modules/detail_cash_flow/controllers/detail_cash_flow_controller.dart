@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
+import 'package:my_cash_book/app/data/cashflow.dart';
+import 'package:my_cash_book/app/utils/database_helper.dart';
 
 class DetailCashFlowController extends GetxController {
   //TODO: Implement DetailCashFlowController
+  final dbHelper = DatabaseHelper.instance;
+  RxList<CashFlow> cashflows = RxList<CashFlow>();
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    loadCashflows();
   }
 
   @override
@@ -19,5 +23,8 @@ class DetailCashFlowController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  void loadCashflows() async {
+    final cashflowList = await dbHelper.getCashflows();
+    cashflows.assignAll(cashflowList);
+  }
 }

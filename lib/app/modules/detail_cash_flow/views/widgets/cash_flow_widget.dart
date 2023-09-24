@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_cash_book/app/utils/app_color.dart';
+import 'package:my_cash_book/app/utils/currency_format.dart';
 
 class CashFlowWidget extends StatelessWidget {
   final bool status_income;
@@ -32,7 +33,7 @@ class CashFlowWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "${status_income ? "[+]" : "[-]"}${nominal}",
+                "${status_income ? "[+]" : "[-]"}${FormattedNominal(nominal)}",
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,

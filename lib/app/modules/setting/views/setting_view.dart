@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:my_cash_book/app/routes/app_pages.dart';
 import 'package:my_cash_book/app/utils/app_color.dart';
 import 'package:my_cash_book/app/widgets/custom_input.dart';
 
@@ -149,6 +150,33 @@ class SettingView extends GetView<SettingController> {
                   ),
                   child: const Text(
                     'Kembali',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'poppins',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    Get.offAllNamed(Routes.LOGIN);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 18),
+                    elevation: 0,
+                    primary: AppColor.secondary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text(
+                    'Logout',
                     style: TextStyle(
                       fontSize: 16,
                       fontFamily: 'poppins',

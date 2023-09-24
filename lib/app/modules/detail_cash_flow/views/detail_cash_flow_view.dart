@@ -49,37 +49,43 @@ class DetailCashFlowView extends GetView<DetailCashFlowController> {
           child: Container(
             height: mHeight,
             margin: const EdgeInsets.all(20),
-            child: const Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CashFlowWidget(
-                      status_income: false,
-                      nominal: 1000,
-                      description: "Dapat bayaran dari panitia",
-                      date: "20-03-2023",
-                    ),
-                    CashFlowWidget(
-                      status_income: true,
-                      nominal: 1000,
-                      description: "Dapat bayaran dari panitia",
-                      date: "20-03-2023",
-                    ),
-                    CashFlowWidget(
-                      status_income: false,
-                      nominal: 1000,
-                      description: "Dapat bayaran dari panitia",
-                      date: "20-03-2023",
-                    ),
-                    CashFlowWidget(
-                      status_income: false,
-                      nominal: 1000,
-                      description: "Dapat bayaran dari panitia",
-                      date: "20-03-2023",
-                    ),
-                  ],
+                Obx(
+                  () => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (controller.cashflows.length >
+                          0) // Pengecekan jika cashflows tidak kosong
+                        ...controller.cashflows.map((cashflow) {
+                          if (cashflow.status == "income") {
+                            // Tampilkan hanya jika status income
+                            return CashFlowWidget(
+                              status_income: true,
+                              nominal: cashflow.nominal,
+                              description: cashflow.description,
+                              date: cashflow.date,
+                            );
+                          } else if (cashflow.status == "expense") {
+                            // Tampilkan hanya jika status expense
+                            return CashFlowWidget(
+                              status_income: false,
+                              nominal: cashflow.nominal,
+                              description: cashflow.description,
+                              date: cashflow.date,
+                            );
+                          }
+                          return Container(); // Kembalikan Container kosong jika tidak sesuai dengan status income/expense
+                        }).toList()
+                      else
+                        Container(
+                          child: Center(
+                            child: Text('Data Cashflow masih kosong'),
+                          ),
+                        ), // Tampilkan Container kosong jika cashflows kosong
+                    ],
+                  ),
                 ),
               ],
             ),

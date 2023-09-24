@@ -30,25 +30,28 @@ class AddExpenseView extends GetView<AddExpenseController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomInput(
-                      controller: controller.usernameC,
+                      controller: controller.dateC,
                       label: "Tanggal",
                       hint: "Pilih tanggal",
                       suffixIcon: const Icon(
                         Icons.date_range,
                         color: Colors.grey,
                       ),
+                      isDate: true,
                     ),
                     CustomInput(
-                      controller: controller.usernameC,
+                      controller: controller.nominalC,
                       label: "Nominal",
                       hint: "Masukkan nominal",
                       suffixIcon: const Icon(
                         Icons.money,
                         color: Colors.grey,
                       ),
+                      isNumber: true,
+                      isNominal: true,
                     ),
                     CustomInput(
-                      controller: controller.usernameC,
+                      controller: controller.descriptionC,
                       label: "Keterangan",
                       hint: "Masukkan keterangan",
                     ),

@@ -5,6 +5,7 @@ import 'package:my_cash_book/app/modules/home/views/widgets/line_chart_widget.da
 import 'package:my_cash_book/app/modules/home/views/widgets/menu_widget.dart';
 import 'package:my_cash_book/app/routes/app_pages.dart';
 import 'package:my_cash_book/app/utils/app_color.dart';
+import 'package:my_cash_book/app/utils/currency_format.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -29,97 +30,113 @@ class HomeView extends GetView<HomeController> {
                 height: 40,
               ),
               Container(
-                height: 150, // Tinggi Container
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius:
-                      BorderRadius.circular(12.0), // Atur radius sudut
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5), // Warna shadow
-                      spreadRadius: -5, // Penyebaran shadow
-                      blurRadius: 7, // Blur radius shadow
-                      offset: const Offset(0, 3), // Offset dari shadow (X, Y)
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Container(
-                      width: mWidth,
-                      decoration: BoxDecoration(
-                        color: AppColor.primaryColor,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(12.0),
-                          topRight: Radius.circular(12.0),
-                        ),
+                  height: 150, // Tinggi Container
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.circular(12.0), // Atur radius sudut
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5), // Warna shadow
+                        spreadRadius: -5, // Penyebaran shadow
+                        blurRadius: 7, // Blur radius shadow
+                        offset: const Offset(0, 3), // Offset dari shadow (X, Y)
                       ),
-                      padding: const EdgeInsets.all(20),
-                      child: const Center(
-                          child: Text(
-                        'Rangkuman Bulan Ini',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      )),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    ],
+                  ),
+                  child: Obx(
+                    () {
+                      int totalIncome = 0;
+                      int totalExpense = 0;
+
+                      // Loop melalui data pemasukan dan pengeluaran dalam controller
+                      for (final cashflow in controller.cashflows) {
+                        if (cashflow.status == "income") {
+                          totalIncome += cashflow.nominal;
+                        } else if (cashflow.status == "expense") {
+                          totalExpense += cashflow.nominal;
+                        }
+                      }
+
+                      return Column(
                         children: [
-                          Column(
-                            children: [
-                              const Text(
-                                'Pemasukan',
+                          Container(
+                            width: mWidth,
+                            decoration: BoxDecoration(
+                              color: AppColor.primaryColor,
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(12.0),
+                                topRight: Radius.circular(12.0),
+                              ),
+                            ),
+                            padding: const EdgeInsets.all(20),
+                            child: const Center(
+                              child: Text(
+                                'Rangkuman Bulan Ini',
                                 style: TextStyle(
+                                  color: Colors.white,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Rp 250.000",
-                                style: TextStyle(
-                                  color: AppColor.primaryColor,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
-                          Column(
-                            children: [
-                              const Text(
-                                'Pemasukan',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
+                          Container(
+                            margin: const EdgeInsets.all(20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: [
+                                    const Text(
+                                      'Pemasukan',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "${FormattedNominal(totalIncome)}", // Format nominal
+                                      style: TextStyle(
+                                        color: AppColor.primaryColor,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Rp 250.000",
-                                style: TextStyle(
-                                  color: AppColor.secondary,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
+                                Column(
+                                  children: [
+                                    const Text(
+                                      'Pengeluaran',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "${FormattedNominal(totalExpense)}", // Format nominal
+                                      style: TextStyle(
+                                        color: AppColor.secondary,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           )
                         ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
+                      );
+                    },
+                  )),
             ],
           ),
           const SizedBox(

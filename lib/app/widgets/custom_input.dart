@@ -12,6 +12,7 @@ class CustomInput extends StatefulWidget {
   final Widget? suffixIcon;
   final bool isDate;
   final bool isNumber;
+  final bool isNominal;
   final bool isClickEmpty;
   CustomInput({
     required this.controller,
@@ -23,6 +24,7 @@ class CustomInput extends StatefulWidget {
     this.isDate = false,
     this.suffixIcon,
     this.isNumber = false,
+    this.isNominal = false,
     this.isClickEmpty = false,
   });
 
@@ -54,14 +56,33 @@ class _CustomInputState extends State<CustomInput> {
           controller: widget.controller,
           keyboardType:
               widget.isNumber ? TextInputType.number : TextInputType.text,
+          onChanged: (text) {
+            if (widget.isNumber && widget.isNominal) {
+              final numericText = text.replaceAll(
+                  RegExp(r'[^0-9]'), ''); // Hapus karakter selain angka
+              final formattedText = NumberFormat.currency(
+                symbol: 'Rp ',
+                decimalDigits: 0, // Tidak ada desimal
+                locale: 'id_ID', // Lokal untuk format Rupiah
+              ).format(int.tryParse(numericText) ??
+                  0); // Format sebagai angka dan tambahkan 'Rp '
+
+              // Set teks yang sudah diformat kembali ke controller
+              widget.controller.value = widget.controller.value.copyWith(
+                text: formattedText,
+                selection:
+                    TextSelection.collapsed(offset: formattedText.length),
+              );
+            }
+          },
           onTap: () async {
             if (widget.isDate) {
               DateTime? pickedDate = await showDatePicker(
                   context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(
-                      1900), //DateTime.now() - not to allow to choose before today.
-                  lastDate: DateTime(2023));
+                  initialDate:
+                      DateTime.now(), // Atur ke tanggal awal yang sesuai
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime.now());
 
               if (pickedDate != null) {
                 print(
