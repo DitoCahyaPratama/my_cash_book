@@ -21,7 +21,14 @@ class LineChartWidget extends GetView<HomeController> {
           );
         } else {
           // Tampilkan indikator loading atau pesan lain jika data belum siap
-          return CircularProgressIndicator();
+          return const Center(
+            child: Text(
+              'Data Masih Kosong, belum bisa tracking',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          );
         }
       },
     );
@@ -142,7 +149,7 @@ class LineChartWidget extends GetView<HomeController> {
 
   LineChartBarData get lineChartBarData1_1 => LineChartBarData(
         isCurved: true,
-        color: AppColor.contentColorGreen,
+        color: AppColor.contentColorPink,
         barWidth: 8,
         isStrokeCapRound: true,
         dotData: const FlDotData(show: false),
@@ -152,13 +159,13 @@ class LineChartWidget extends GetView<HomeController> {
 
   LineChartBarData get lineChartBarData1_2 => LineChartBarData(
         isCurved: true,
-        color: AppColor.contentColorPink,
+        color: AppColor.contentColorGreen,
         barWidth: 8,
         isStrokeCapRound: true,
         dotData: const FlDotData(show: false),
         belowBarData: BarAreaData(
           show: false,
-          color: AppColor.contentColorPink.withOpacity(0),
+          color: AppColor.contentColorGreen.withOpacity(0),
         ),
         spots: controller.incomeSpots,
       );

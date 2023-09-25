@@ -32,7 +32,7 @@ class AddIncomeController extends GetxController {
   }
 
   Future<void> resetForm() async {
-    dateC.clear();
+    dateC.text = "01-01-2021";
     nominalC.clear();
     descriptionC.clear();
   }
