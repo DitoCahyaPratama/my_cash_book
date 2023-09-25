@@ -29,7 +29,7 @@ class SettingView extends GetView<SettingController> {
         child: Row(
           children: [
             Image.asset(
-              "assets/images/logo.png",
+              "assets/images/me.jpg",
               width: mWidth / 3,
             ),
             const Column(

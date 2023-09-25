@@ -62,7 +62,7 @@ class AddIncomeView extends GetView<AddIncomeController> {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (controller.isLoading.isFalse) {
-                        await controller.addIncome();
+                        await controller.resetForm();
                       }
                     },
                     style: ElevatedButton.styleFrom(

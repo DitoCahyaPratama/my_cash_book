@@ -62,7 +62,7 @@ class AddExpenseView extends GetView<AddExpenseController> {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (controller.isLoading.isFalse) {
-                        await controller.addExpense();
+                        await controller.resetForm();
                       }
                     },
                     style: ElevatedButton.styleFrom(

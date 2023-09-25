@@ -31,6 +31,12 @@ class AddIncomeController extends GetxController {
     super.onClose();
   }
 
+  Future<void> resetForm() async {
+    dateC.clear();
+    nominalC.clear();
+    descriptionC.clear();
+  }
+
   Future<void> addIncome() async {
     final date = dateC.text;
     final nominalWithRp = nominalC.text;
